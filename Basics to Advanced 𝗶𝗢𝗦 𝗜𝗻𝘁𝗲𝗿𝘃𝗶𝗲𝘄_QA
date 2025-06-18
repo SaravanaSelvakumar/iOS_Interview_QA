@@ -186,10 +186,9 @@ Supports:
 ✅ Deinitializers
 
 ✅ Use cases:
+
 When you need to share state across multiple places (e.g., view controllers, managers).
-
 When you need inheritance (e.g., UIViewController).
-
 When the model is complex and mutable.
 
 
@@ -214,12 +213,23 @@ Structs are safer for data models when immutability or copying behavior is desir
 ✅ Use cases:
 
 For lightweight data models (like coordinates, points, custom data types).
-
 For safety and predictability (no unexpected changes from shared references).
+Best for data-driven models in SwiftUI or value-type-based architectures.
 
 
 
-13.) What are SOLID principles ?
+13.) How do you pass data from one view to another in iOS?
+
+There are multiple ways to pass data between views or view controllers in iOS depending on the use case. Common methods include Property Passing, Closures, Delegates, NotificationCenter, and Combine.
+1. Property Passing (most common)
+2. Closure (Callback)
+3. Delegate Pattern
+4. NotificationCenter
+5. Combine (modern reactive way)
+
+
+
+14.) What are SOLID principles ?
 
 SOLID is an acronym for five design principles that help developers write cleaner, maintainable, and scalable code—especially in object-oriented programming like Swift.
 S – Single Responsibility Principle (SRP)
@@ -316,28 +326,4 @@ class ViewModel {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Best for data-driven models in SwiftUI or value-type-based architectures.
 
