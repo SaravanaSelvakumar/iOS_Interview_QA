@@ -217,5 +217,127 @@ For lightweight data models (like coordinates, points, custom data types).
 
 For safety and predictability (no unexpected changes from shared references).
 
+
+
+13.) What are SOLID principles ?
+
+SOLID is an acronym for five design principles that help developers write cleaner, maintainable, and scalable code—especially in object-oriented programming like Swift.
+S – Single Responsibility Principle (SRP)
+O – Open/Closed Principle
+L – Liskov Substitution Principle
+I – Interface Segregation Principle
+D – Dependency Inversion Principle
+
+| Principle | Meaning                        |
+| --------- | ------------------------------ |
+| **S**     | One class = One responsibility |
+| **O**     | Extend without modifying       |
+| **L**     | Subclasses behave like parents |
+| **I**     | Small, focused protocols       |
+| **D**     | Code against abstractions      |
+
+
+🧱 1. S – Single Responsibility Principle (SRP)
+Each class should have only one responsibility or reason to change.
+
+✅ Example: A class that fetches user data should not also be responsible for saving it to disk.
+class UserFetcher {
+    func fetchUser() { /* fetch logic */ }
+}
+
+class UserSaver {
+    func saveUser() { /* save logic */ }
+}
+
+🧱 2. O – Open/Closed Principle
+Software entities should be open for extension but closed for modification.
+
+✅ Example: Use protocols and extensions to add behavior without modifying existing code.
+protocol PaymentMethod {
+    func pay(amount: Double)
+}
+
+class CreditCard: PaymentMethod {
+    func pay(amount: Double) { /* logic */ }
+}
+
+class PayPal: PaymentMethod {
+    func pay(amount: Double) { /* logic */ }
+}
+
+🧱 3. L – Liskov Substitution Principle
+Subtypes must be substitutable for their base types.
+
+✅ Example: You should be able to use a subclass in place of a superclass without breaking the program.
+class Bird {
+    func fly() {}
+}
+
+class Sparrow: Bird {
+    override func fly() {}
+}
+⚠️ Don’t create a subclass that breaks expectations, like:
+class Ostrich: Bird {
+    override func fly() { /* This is incorrect – ostrich can't fly */ }
+}
+
+🧱 4. I – Interface Segregation Principle
+Clients shouldn’t be forced to depend on interfaces they don’t use.
+
+✅ Example: Use smaller, specific protocols rather than a large one.
+protocol Flyable {
+    func fly()
+}
+
+protocol Swimmable {
+    func swim()
+}
+protocol Bird {
+    func fly()
+    func swim()
+}
+
+🧱 5. D – Dependency Inversion Principle
+Depend on abstractions, not concrete implementations.
+
+✅ Example: Inject dependencies using protocols.
+protocol APIService {
+    func fetchData()
+}
+
+class NetworkManager: APIService {
+    func fetchData() { /* fetch logic */ }
+}
+
+class ViewModel {
+    var service: APIService
+    init(service: APIService) {
+        self.service = service
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Best for data-driven models in SwiftUI or value-type-based architectures.
 
