@@ -1,0 +1,259 @@
+1.) 𝗘𝘅𝗽𝗹𝗮𝗶𝗻 𝗖𝗼𝗱𝗮𝗯𝗹𝗲 𝗽𝗿𝗼𝘁𝗼𝗰𝗼𝗹 𝗶𝗻 𝗦𝘄𝗶𝗳𝘁.
+
+The Codable protocol in Swift is used to make a data model encodable to and decodable from formats like JSON.
+It’s a combination of the Encodable and Decodable protocols.
+By conforming to Codable, Swift automatically generates code to serialize and deserialize the model.
+It’s widely used for networking and storing data locally.
+Codable lets you convert JSON to Swift objects and vice versa, making API integration easier.
+
+struct User: Codable {
+    let name: String
+    let age: Int
+}
+
+let jsonData = """
+{
+  "name": "Alice",
+  "age": 25
+}
+""".data(using: .utf8)!
+
+let user = try? JSONDecoder().decode(User.self, from: jsonData)
+print(user?.name) // Output: Alice
+
+| Term        | Purpose                    |
+| ----------- | -------------------------- |
+| `Encodable` | Convert Swift → JSON       |
+| `Decodable` | Convert JSON → Swift       |
+| `Codable`   | Both Encodable & Decodable |
+
+
+
+2.) What is URLSession?
+
+URLSession is the native Swift API used to perform network tasks like downloading/uploading data, making HTTP requests, etc.
+
+guard let url = URL(string: "https://api.example.com/user") else { return }
+
+let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    if let data = data {
+        // Decode data
+    }
+}
+task.resume()
+
+
+
+3.) What are the types of URLSession tasks?
+
+dataTask → For simple requests (GET, POST)
+
+uploadTask → Upload files
+
+downloadTask → Download files with progress
+
+
+
+4.) What is URLRequest and how is it used?
+
+URLRequest lets you configure the request with method (GET/POST), headers, timeout, and body.
+
+var request = URLRequest(url: url)
+request.httpMethod = "POST"
+request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+request.httpBody = jsonData
+
+
+
+5.) How do you handle errors in a network request?
+
+In Swift, you define a custom error type by conforming to the Error protocol, then use do-try-catch blocks to handle errors thrown from methods. This allows centralized and clean error handling.
+
+ we handle network errors by checking for error object (like no internet, timeout) HTTP status codes (like 404, 500) invalid/missing data
+
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingFailed
+    case serverError(statusCode: Int)
+}
+
+class NetworkManager {
+    
+    func fetchUser(from urlString: String) throws -> UserModel {
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidURL
+        }
+}
+
+do {
+    let user = try NetworkManager().fetchUser(from: "https://api.example.com/user")
+    print("✅ User:", user)
+} catch NetworkError.invalidURL {
+    print("❌ Invalid URL")
+}
+
+guard let user = try? JSONDecoder().decode(UserModel.self, from: data) else {
+            throw NetworkError.decodingFailed
+        }
+}
+
+
+
+6.) What is Alamofire?
+
+Alamofire is a popular third-party Swift library used for handling HTTP networking in iOS.
+It simplifies tasks like making API calls, handling JSON responses, uploading files, monitoring network status, and more.
+
+🔹 Why use Alamofire?
+
+Cleaner and more readable syntax than URLSession
+Built-in request/response validation
+Easy integration with Codable for JSON
+Supports multipart uploads, authentication, retry logic
+
+| Feature                         | Description                                  |
+| ------------------------------- | -------------------------------------------- |
+| `AF.request()`                  | To make HTTP requests                        |
+| `.responseDecodable()`          | Decode JSON into model objects               |
+| `.validate()`                   | Auto-checks for success HTTP codes (200–299) |
+| `.upload()`                     | File uploads with progress tracking          |
+| `AF.NetworkReachabilityManager` | Monitors internet status                     |
+
+
+
+7.) How do you pass data from one view to another in iOS?
+
+There are multiple ways to pass data between views or view controllers in iOS depending on the use case. Common methods include Property Passing, Closures, Delegates, NotificationCenter, and Combine.
+
+🔹 1. Property Passing (most common)
+let vc = DetailVC()
+vc.message = "Hello"
+navigationController?.pushViewController(vc, animated: true)
+
+🔹 2. Closure (Callback)
+class DetailVC: UIViewController {
+    var onDataPass: ((String) -> Void)?
+
+    func doneTapped() {
+        onDataPass?("Updated Value")
+        dismiss(animated: true)
+    }
+}
+let vc = DetailVC()
+vc.onDataPass = { value in
+    print("Received from Detail: \(value)")
+}
+
+🔹 3. Delegate Pattern
+Used when one view controller needs to notify another of an action or pass data:
+protocol DataPassingDelegate: AnyObject {
+    func didUpdateData(_ value: String)
+}
+
+class DetailVC: UIViewController {
+    weak var delegate: DataPassingDelegate?
+    func sendBack() {
+        delegate?.didUpdateData("New Value")
+    }
+}
+
+🔹 4. NotificationCenter
+Used for broadcasting data to multiple observers:
+// Sender
+NotificationCenter.default.post(name: .dataUpdated, object: nil, userInfo: ["value": "Hello"])
+
+// Receiver
+NotificationCenter.default.addObserver(forName: .dataUpdated, object: nil, queue: .main) { notification in
+    if let value = notification.userInfo?["value"] as? String {
+        print("Received: \(value)")
+    }
+}
+extension Notification.Name {
+    static let dataUpdated = Notification.Name("dataUpdated")
+}
+
+🔹 5. Combine (modern reactive way)
+Used when working with publishers and subscribers (iOS 13+):
+
+class SharedModel: ObservableObject {
+    @Published var name: String = ""
+}
+
+struct ViewA: View {
+    @ObservedObject var model = SharedModel()
+    var body: some View {
+        ViewB(model: model)
+    }
+}
+
+🔚 Conclusion:
+| Method             | Use Case                      |
+| ------------------ | ----------------------------- |
+| Property Passing   | Simple one-way pass (push)    |
+| Closure            | Pass data back on dismiss/pop |
+| Delegate           | One-to-one communication      |
+| NotificationCenter | One-to-many broadcasting      |
+| Combine            | Reactive real-time updates    |
+
+
+
+
+8.) What is SSL Pinning in iOS?
+
+SSL Pinning is a security technique used to prevent man-in-the-middle (MITM) attacks by binding (pinning) your app to a specific server certificate or public key.
+This ensures that even if a malicious certificate is installed on the device, your app will only trust the expected certificate.
+
+🔐 Why use SSL Pinning?
+
+Prevents MITM attacks
+Ensures you're communicating only with your trusted server
+Adds an extra layer of security on top of HTTPS
+
+🔹 How it works:
+
+When a network request is made:
+iOS validates the server's SSL certificate using system trust store (normal HTTPS).
+With SSL Pinning, the app compares the server's certificate/public key with the one embedded in the app.
+If it doesn’t match, the connection is rejected.
+
+| Type                    | Description                               |
+| ----------------------- | ----------------------------------------- |
+| **Certificate Pinning** | App validates against a known certificate |
+| **Public Key Pinning**  | App validates the server’s public key     |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
