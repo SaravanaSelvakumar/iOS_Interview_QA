@@ -109,3 +109,83 @@ extension String {
 let value = "123"
 print(value.isNumeric())
 
+
+11.) Difference between Class and Struct 
+
+The main difference is that classes are reference types, while structs are value types.
+
+Class instances are shared via references; changes affect all references.
+
+Struct instances are copied when assigned or passed, keeping data isolated.
+
+Classes support inheritance, deinitializers, and reference counting, while structs do not.
+
+✅ When to Use Class and Struct:
+
+Use **class** when:
+
+You need inheritance, identity, or shared state.
+
+You’re working with UIKit (e.g., UIView, UIViewController).
+
+Use **struct** when:
+
+You want safe, isolated, immutable copies.
+
+You’re building data models in SwiftUI or functional architecture.
+
+
+12.) when to use Class and when to use Struct ?
+
+🔸 1. Class — Reference Type
+
+Stored in Heap memory: Objects live in memory until there are no references left.
+
+Pass-by-Reference: When assigned to a new variable, only the reference (pointer) is copied, not the data.
+
+Supports Inheritance: Classes can inherit properties and methods from another class.
+
+Mutable Even If Declared with let: Unlike structs, properties of a class can be modified even if the instance is assigned to a constant
+
+When you assign it to a new variable or pass it to a function, it shares the same reference (points to the same instance).
+
+Supports:
+
+✅ Inheritance
+
+✅ Deinitializers
+
+✅ Use cases:
+When you need to share state across multiple places (e.g., view controllers, managers).
+
+When you need inheritance (e.g., UIViewController).
+
+When the model is complex and mutable.
+
+
+🔸 2. Struct — Value Type
+
+Stored in Stack memory: Structs are destroyed when they go out of scope, making them more memory efficient.
+
+Pass-by-Value: Assigning a struct to a new variable copies the data
+
+No Inheritance: Structs do not support inheritance
+
+When you assign it to another variable or pass it to a function, it creates a copy.
+
+Does not support:
+
+❌ Inheritance
+
+❌ Deinitializers
+
+Structs are safer for data models when immutability or copying behavior is desired.
+
+✅ Use cases:
+
+For lightweight data models (like coordinates, points, custom data types).
+
+For safety and predictability (no unexpected changes from shared references).
+
+Best for data-driven models in SwiftUI or value-type-based architectures.
+
