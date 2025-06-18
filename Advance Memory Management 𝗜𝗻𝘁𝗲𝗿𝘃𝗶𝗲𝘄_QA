@@ -1,0 +1,198 @@
+1.) What is a retain cycle? How do you prevent it?
+
+A retain cycle happens when two or more objects hold strong references to each other, preventing ARC from deallocating them, which causes a memory leak.
+
+To prevent it, use weak or unowned references for one of the objects, especially in closures or delegate patterns, so ARC can break the cycle and free memory.
+
+var john: Person? = Person(name: "John")
+var apt: Apartment? = Apartment(unit: "101")
+
+john?.apartment = apt
+apt?.tenant = john
+
+john = nil
+apt = nil  // ❌ Retain cycle — nothing gets deinitialized!  using   weak var tenant: Person?  // weak reference Now ARC can clean up properly.
+
+One strong + one weak = safe
+Two strong = memory leak
+
+
+2.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝘁𝗵𝗲 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝗰𝗲 𝗯𝗲𝘁𝘄𝗲𝗲𝗻 𝗦𝘁𝗿𝗼𝗻𝗴, 𝗪𝗲𝗮𝗸, 𝗮𝗻𝗱 𝗨𝗻𝗼𝘄𝗻𝗲𝗱 𝗿𝗲𝗳𝗲𝗿𝗲𝗻𝗰𝗲𝘀 𝗶𝗻 𝗦𝘄𝗶𝗳𝘁?
+
+A strong reference keeps an object in memory as long as it exists, increasing the retain count.
+
+A weak reference does not keep the object alive and becomes nil when the object is deallocated — it's always optional.
+
+An unowned reference also doesn’t retain the object but assumes it will never be nil — used when both objects have the same lifetime.
+Weak and unowned are mainly used to prevent retain cycles.
+
+
+3.) What is ARC (Automatic Reference Counting)?
+
+ ARC (Automatic Reference Counting) tracks object references. When the reference count reaches zero, the object is deallocated. ARC prevents memory leaks but can cause retain cycles if not managed properly.
+
+ ARC (Automatic Reference Counting) is a memory management system in Swift that automatically keeps track of the number of references to class instances.
+ When an instance is no longer needed, ARC automatically deallocates it to free up memory.
+
+ var person1: Person? = Person(name: "John")
+ person1 = nil  // ARC deallocates the instance here
+
+
+4.) What is Memory Leak and how to Debug it
+
+Memory leaks occur when objects stay in memory longer than needed, often due to retain cycles.
+In iOS, you can debug memory leaks using Instruments (Leaks & Allocations tool) or Xcode’s Memory Graph.
+Common solutions include using weak or unowned references and avoiding strong reference cycles in closures and delegates.
+
+Check Closures/Delegates:
+
+Use [weak self] or [unowned self] inside closures to avoid retain cycles.
+
+Use Xcode Memory Graph:
+
+Run the app → Debug navigator → Memory Graph → Look for objects not deallocated (leaked marked in purple).
+
+
+5.) What is Dependency injection (DI) ?
+
+Dependency Injection (DI) is a design pattern where an object receives its dependencies (like services or data managers) from outside rather than creating them internally.
+It improves testability, modularity, and code reusability.
+
+Types of Dependency Injection:
+
+Constructor Injection (most common in Swift)
+Property Injection
+Method Injection
+
+protocol NetworkService {
+    func fetchData()
+}
+
+class APIService: NetworkService {
+    func fetchData() {
+        print("Fetching data from API...")
+    }
+}
+
+class ViewModel {
+    let service: NetworkService
+    
+    init(service: NetworkService) {
+        self.service = service
+    }
+    
+    func loadData() {
+        service.fetchData()
+    }
+}
+
+let viewModel = ViewModel(service: APIService())
+viewModel.loadData()
+
+
+6.) What is Dependency Inversion Principle (DIP)
+
+The Dependency Inversion Principle is the D in SOLID principles.
+It states that high-level modules should not depend on low-level modules — both should depend on abstractions.
+This helps reduce tight coupling and makes code more testable, maintainable, and flexible.
+
+🔍 Real-World Meaning:
+Instead of a class directly creating or depending on a concrete class, it depends on a protocol (abstraction).
+
+The actual implementation is then injected from outside (e.g., using Dependency Injection).
+
+✅ Example in Swift:
+🔸 Without DIP (tight coupling):
+
+class APIService {
+    func fetchData() {
+        print("Fetching from network")
+    }
+}
+
+class ViewModel {
+    let service = APIService() // tightly coupled
+}
+
+🔹 With DIP (loose coupling via protocol):
+
+protocol DataService {
+    func fetchData()
+}
+
+class APIService: DataService {
+    func fetchData() {
+        print("Fetching from network")
+    }
+}
+
+class ViewModel {
+    let service: DataService  // depends on abstraction
+
+    init(service: DataService) {
+        self.service = service
+    }
+}
+
+✅ Key Benefits:
+
+Promotes modularity
+Enables easy unit testing
+Improves scalability and maintainability
+
+
+
+7.) What is a property observer (willSet, didSet)?
+
+Property observers in Swift allow you to monitor and respond to changes in a property's value.
+
+**willSet** is called just before the value is set.
+
+**didSet** is called immediately after the value is set.
+
+They're useful for validation, triggering UI updates, or syncing related data.
+Property observers don’t run on init() unless the value is modified after initialization
+
+var score: Int = 0 {
+    willSet {
+        print("Score will change from \(score) to \(newValue)")
+    }
+    didSet {
+        print("Score changed from \(oldValue) to \(score)")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
