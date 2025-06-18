@@ -4,25 +4,53 @@ Auto Layout is a constraint-based layout system used in iOS to create responsive
 It automatically adjusts the size and position of views based on constraints, ensuring the UI looks good on different screen sizes and orientations.
 It helps maintain a consistent layout across all Apple devices.
 
+
+1.1) Difference between var and let ?
+
+**var** is used to declare a variable whose value can be changed (mutable), 
+**let** is used to declare a constant whose value cannot be changed (immutable).
+Using let improves code safety by preventing accidental changes to values.
+
+
+1.2) what is computed property and stored property 
+stored property stores the values 
+computed property calculates and returns a value
+
+A stored property actually stores a value in memory, while a computed property calculates its value dynamically based on other data.
+Stored properties are declared with var or let, whereas computed properties use var with a get (and optionally set) block.
+
+struct Person {
+    var firstName: String      // stored property
+    var lastName: String       // stored property
+    
+    var fullName: String {      // computed property
+        return "\(firstName) \(lastName)"
+    }
+}
+
+
 2.) what is Optional ?
 
 Optionals in Swift are used to represent a variable that can hold either a value or nil (no value). They help safely handle the absence of a value without crashing the app. You declare an optional by adding ? after the type, like String?.
 
 optional are swift features were a variable can hold a value or it can be nil and Optionals can  be handled in multiple ways nil coalescing optional binding guard statement and force unwrap
 
-3.)  What is the difference between UIKit and SwiftUI?
+
+2.1.)  What is the difference between UIKit and SwiftUI?
 
 UIKit is the traditional framework for building iOS apps, while SwiftUI is a newer, declarative framework that allows for faster development and less boilerplate code.
 
 UIKit is an imperative framework where we build and update the UI step-by-step using Storyboards or programmatically. It gives more control but requires more boilerplate code.
 SwiftUI is a declarative framework introduced by Apple that allows us to build UI using less code, with automatic updates when the state changes. It’s modern and suitable for cross-platform Apple development.
 
- 3.) 𝗘𝘅𝗽𝗹𝗮𝗶𝗻 𝘁𝗵𝗲 𝗗𝗲𝗹𝗲𝗴𝗮𝘁𝗲 𝗽𝗮𝘁𝘁𝗲𝗿𝗻 𝗶𝗻 𝗶𝗢𝗦.
+
+3.) 𝗘𝘅𝗽𝗹𝗮𝗶𝗻 𝘁𝗵𝗲 𝗗𝗲𝗹𝗲𝗴𝗮𝘁𝗲 𝗽𝗮𝘁𝘁𝗲𝗿𝗻 𝗶𝗻 𝗶𝗢𝗦.
 
 The Delegate pattern in iOS is a design pattern that allows one object to communicate back to another in a decoupled way.
 It’s commonly used to handle user interactions or pass data, like responding to a button tap or table view selection.
 It works by defining a protocol and assigning a delegate property, which is implemented by another class.
 This helps keep code modular and maintainable.
+
 
 4.) 𝗪𝗵𝗮𝘁 𝗶𝘀 the swift latest version ios version xcode version
 
@@ -35,6 +63,7 @@ Storyboard is a visual file that contains multiple view controllers and the tran
 XIB (or Nib) files are used to design individual UI components or single view controllers separately.
 Storyboards are good for app flow visualization, while XIBs offer better modularity and easier reuse.
 XIBs also load faster during development and reduce merge conflicts in teams.
+
 
 6.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝗩𝗶𝗲𝘄𝗖𝗼𝗻𝘁𝗿𝗼𝗹𝗹𝗲𝗿 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
 
@@ -60,6 +89,7 @@ Active: The app is running and receiving events.
 Background: The app is executing in the background.
 
 Suspended: The app is in memory but not executing code.
+
 
 8.) 𝗪𝗵𝗮𝘁 𝗶DataSource and Delegate
 
