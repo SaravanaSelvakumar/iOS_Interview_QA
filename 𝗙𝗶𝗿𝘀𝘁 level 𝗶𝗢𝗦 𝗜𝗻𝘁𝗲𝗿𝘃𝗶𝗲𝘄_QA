@@ -1,0 +1,111 @@
+1.) what is AutoLayout ?
+
+Auto Layout is a constraint-based layout system used in iOS to create responsive user interfaces.
+It automatically adjusts the size and position of views based on constraints, ensuring the UI looks good on different screen sizes and orientations.
+It helps maintain a consistent layout across all Apple devices.
+
+2.) what is Optional ?
+
+Optionals in Swift are used to represent a variable that can hold either a value or nil (no value). They help safely handle the absence of a value without crashing the app. You declare an optional by adding ? after the type, like String?.
+
+optional are swift features were a variable can hold a value or it can be nil and Optionals can  be handled in multiple ways nil coalescing optional binding guard statement and force unwrap
+
+3.)  What is the difference between UIKit and SwiftUI?
+
+UIKit is the traditional framework for building iOS apps, while SwiftUI is a newer, declarative framework that allows for faster development and less boilerplate code.
+
+UIKit is an imperative framework where we build and update the UI step-by-step using Storyboards or programmatically. It gives more control but requires more boilerplate code.
+SwiftUI is a declarative framework introduced by Apple that allows us to build UI using less code, with automatic updates when the state changes. It’s modern and suitable for cross-platform Apple development.
+
+ 3.) 𝗘𝘅𝗽𝗹𝗮𝗶𝗻 𝘁𝗵𝗲 𝗗𝗲𝗹𝗲𝗴𝗮𝘁𝗲 𝗽𝗮𝘁𝘁𝗲𝗿𝗻 𝗶𝗻 𝗶𝗢𝗦.
+
+The Delegate pattern in iOS is a design pattern that allows one object to communicate back to another in a decoupled way.
+It’s commonly used to handle user interactions or pass data, like responding to a button tap or table view selection.
+It works by defining a protocol and assigning a delegate property, which is implemented by another class.
+This helps keep code modular and maintainable.
+
+4.) 𝗪𝗵𝗮𝘁 𝗶𝘀 the swift latest version ios version xcode version
+
+Swift 6.1 Xcode 16  iOS 18.5  OR  Swift 6 Xcode 16  iOS 18
+
+
+5.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝘁𝗵𝗲 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝗰𝗲 𝗯𝗲𝘁𝘄𝗲𝗲𝗻 𝗦𝘁𝗼𝗿𝘆𝗯𝗼𝗮𝗿𝗱 𝗮𝗻𝗱 𝗫𝗜𝗕 𝗳𝗶𝗹𝗲𝘀?
+
+Storyboard is a visual file that contains multiple view controllers and the transitions (segues) between them in a single interface.
+XIB (or Nib) files are used to design individual UI components or single view controllers separately.
+Storyboards are good for app flow visualization, while XIBs offer better modularity and easier reuse.
+XIBs also load faster during development and reduce merge conflicts in teams.
+
+6.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝗩𝗶𝗲𝘄𝗖𝗼𝗻𝘁𝗿𝗼𝗹𝗹𝗲𝗿 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
+
+viewDidLoad() – called once when the view loads.
+
+viewWillAppear() – called just before the view appears.
+
+viewDidAppear() – called after the view appears.
+
+viewWillDisappear() – before it disappears.
+
+viewDidDisappear() – after it disappears.
+
+
+7.) 𝗪𝗵𝗮𝘁 𝗶𝘀 app 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
+
+Not Running: The app is not launched yet.
+
+Inactive: The app is in the foreground but not receiving input.
+
+Active: The app is running and receiving events.
+
+Background: The app is executing in the background.
+
+Suspended: The app is in memory but not executing code.
+
+8.) 𝗪𝗵𝗮𝘁 𝗶DataSource and Delegate
+
+DataSource and Delegate are protocols used to separate data handling and user interaction logic in UIKit components like UITableView or UICollectionView.
+
+DataSource provides the data (e.g., number of rows, cell content).
+
+Delegate handles user interactions (e.g., row selection, editing).
+
+UITableViewDataSource methods:               UITableViewDelegate methods:
+
+numberOfRowsInSection                             didSelectRowAt
+
+cellForRowAt                                      heightForRowAt
+
+
+9.) What is a protocol in Swift?
+
+A protocol in Swift defines a blueprint of methods, properties, or other requirements that a class, struct, or enum must adopt.
+It allows for flexible and reusable code through abstraction.
+Protocols support protocol-oriented programming, a key concept in Swift.
+
+protocol Vehicle {
+    func startEngine()
+}
+
+struct Car: Vehicle {
+    func startEngine() {
+        print("Car engine started")
+    }
+}
+
+
+10.) What is an extension?
+
+An extension allows you to add functionality to existing classes, structures, or enumerations without modifying their original implementation.
+
+An extension in Swift is used to add new functionality to an existing class, struct, enum, or protocol without modifying its original source code.
+It allows you to add methods, computed properties, and conform to protocols, helping keep your code organized and modular.
+
+extension String {
+    func isNumeric() -> Bool {
+        return Double(self) != nil
+    }
+}
+
+let value = "123"
+print(value.isNumeric())
+
