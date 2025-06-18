@@ -1,0 +1,216 @@
+1.) 𝗪𝗵𝗮𝘁 𝗶𝘀 concurrency and type of concurrency
+
+Concurrency in iOS allows multiple tasks to run at the same time, improving performance and responsiveness.
+It helps run time-consuming tasks (like API calls or file processing) without blocking the main thread.
+iOS supports different types of concurrency like GCD (Grand Central Dispatch), Operation Queues, and Swift Concurrency (async/await).
+
+| Type                  | Description                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| **GCD**               | Lightweight C-based API for managing tasks using queues.                                             |
+| **OperationQueue**    | Object-oriented abstraction over GCD with more control (dependencies, cancel, etc).                  |
+| **Swift Concurrency** | Modern, structured concurrency using `async`, `await`, and `Task` introduced in Swift 5.5 (iOS 13+). |
+
+
+
+2.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝗚𝗖𝗗 𝗮𝗻𝗱 𝗵𝗼𝘄 𝗱𝗼 𝘆𝗼𝘂 𝘂𝘀𝗲 𝗶𝘁 𝗶𝗻 𝗶𝗢𝗦?
+
+GCD (Grand Central Dispatch) is a low-level API in iOS used for managing concurrent tasks and improving app performance.
+It helps run heavy or background tasks (like network calls) without blocking the main thread.
+You use GCD by dispatching code blocks to different queues, such as DispatchQueue.main or DispatchQueue.global().
+
+DispatchQueue.global().async {
+    // Background thread work
+    let data = fetchData()
+    
+    DispatchQueue.main.async {
+        // Update UI on main thread
+        self.label.text = data
+    }
+}
+
+
+
+3.) 𝗪𝗵𝗮𝘁 𝗶𝘀 OperationQueue 𝗶𝗻 𝗶𝗢𝗦 ?
+
+OperationQueue is a high-level, object-oriented API for managing concurrent operations in iOS.
+It uses Operation subclasses or BlockOperation to run tasks asynchronously or concurrently.
+Unlike GCD, it allows better control like setting priorities, dependencies, and cancelling operations.
+
+let queue = OperationQueue()
+
+let operation1 = BlockOperation {
+    print("Task 1 running on background thread")
+}
+
+let operation2 = BlockOperation {
+    print("Task 2 after Task 1")
+}
+
+// Set dependency: operation2 runs after operation1
+operation2.addDependency(operation1)
+
+queue.addOperations([operation1, operation2], waitUntilFinished: false)
+
+
+
+4.) 𝗪𝗵𝗮𝘁 𝗶𝘀 Swift Concurrency 𝗶𝗻 𝗶𝗢𝗦 ?
+
+Swift Concurrency is Apple’s modern approach to writing asynchronous and concurrent code using async, await, and structured concurrency.
+It simplifies code readability, avoids callback hell, and improves performance by safely running tasks in parallel.
+
+| Concept     | Description                                                      |
+| ----------- | ---------------------------------------------------------------- |
+| `async`     | Marks a function that performs asynchronous work.                |
+| `await`     | Suspends the current task until the async function returns.      |
+| `Task`      | Used to start a new concurrent unit of work.                     |
+| `TaskGroup` | Enables parallel tasks with structured results.                  |
+| `Actor`     | Ensures **thread-safe access** to mutable state by isolating it. |
+
+
+
+5.) What is a Dispatch Queue?
+
+A Dispatch Queue is part of Grand Central Dispatch (GCD) in iOS used to manage the execution of tasks concurrently or serially in the background or main thread.
+
+| Queue Type           | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| **Main Queue**       | Runs tasks on the main (UI) thread. Use it to update UI. |
+| **Serial Queue**     | Executes tasks one after another, in order.              |
+| **Concurrent Queue** | Executes multiple tasks simultaneously.                  |
+| **Global Queues**    | System-provided concurrent queues with different QoS.    |
+| **Custom Queues**    | Queues you create yourself (serial or concurrent).       |
+
+// Run on background queue
+DispatchQueue.global().async {
+    // Background task
+    print("Background Task")
+
+    // Update UI on main queue
+    DispatchQueue.main.async {
+        print("UI Update on Main Thread")
+    }
+}
+
+let serialQueue = DispatchQueue(label: "com.myapp.serial")
+serialQueue.async {
+    print("Task 1")
+}
+serialQueue.async {
+    print("Task 2")
+}
+
+🔍 Use Cases:
+
+Run network requests in the background
+Update UI on the main thread
+Perform heavy tasks off the main thread to keep the UI responsive
+
+
+
+6.) What is a Semaphore in iOS?
+
+A semaphore is a low-level synchronization tool used to control access to a resource across multiple threads.
+In iOS, we use **DispatchSemaphore** from GCD (Grand Central Dispatch).
+
+ Use Case:
+
+Limit concurrent access to resources (e.g. network requests)
+Pause execution until an async task finishes
+Synchronize threads
+
+let semaphore = DispatchSemaphore(value: 0)
+
+DispatchQueue.global().async {
+    print("Start async task")
+    sleep(2)
+    print("Async task completed")
+    semaphore.signal() // Signals the semaphore
+}
+
+semaphore.wait() // Waits until signal is called
+print("Continue after async task")
+
+🔹 Parameters:
+
+value: The number of available resources (or allowed concurrent access)
+value = 1: acts like a lock
+value > 1: allows limited parallelism
+wait(): Decrements the counter. If value is 0, waits until signal is called.
+signal(): Increments the counter and unblocks any waiting threads.
+
+⚠️ Caution:
+
+Can cause deadlocks or thread blocking if used improperly.
+Use higher-level concurrency tools like async/await, DispatchGroup, or OperationQueue when possible.
+
+
+
+7.) What is the difference between async and sync in GCD?
+
+| `async`                       | `sync`                               |
+| ----------------------------- | ------------------------------------ |
+| Does **not block** the thread | **Blocks** the current thread        |
+| Executes in background        | Waits for task to finish             |
+| Used for non-UI work          | Avoid on main thread (risk deadlock) |
+
+
+8.)  What is DispatchGroup?
+
+Used to group multiple async tasks and get notified when they’re all complete.
+
+let group = DispatchGroup()
+
+group.enter()
+DispatchQueue.global().async {
+    // task 1
+    group.leave()
+}
+
+group.notify(queue: .main) {
+    print("All tasks finished")
+}
+
+
+
+9.) When should you use GCD vs. OperationQueue?
+
+| GCD                    | OperationQueue                  |
+| ---------------------- | ------------------------------- |
+| Lightweight, low-level | High-level with more features   |
+| Closure-based          | Class-based with dependencies   |
+| No cancel support      | Can be cancelled or prioritized |
+
+
+
+10.) What is Dispatch Barrier?
+
+Used in concurrent queues to create thread-safe write operations.
+
+let queue = DispatchQueue(label: "com.data.queue", attributes: .concurrent)
+
+queue.async {
+    // Read
+}
+queue.async(flags: .barrier) {
+    // Write safely
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
