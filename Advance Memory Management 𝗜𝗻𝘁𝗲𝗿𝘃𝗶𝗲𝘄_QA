@@ -38,7 +38,30 @@ Weak and unowned are mainly used to prevent retain cycles.
  person1 = nil  // ARC deallocates the instance here
 
 
-4.) What is Memory Leak and how to Debug it
+4.) What is a Memory Leak?
+
+A memory leak occurs when allocated memory is never released, leading to increased memory usage over time.
+This usually happens when objects are retained in memory unintentionally, often due to retain cycles.
+
+🔸 How to Prevent:
+Use **weak** or **unowned** for delegates and inside closures
+
+Avoid unnecessary strong references
+
+Break cycles manually in deinit if needed
+
+🔹 Common Cause: Retain Cycle
+A retain cycle is when two or more objects hold strong references to each other, preventing ARC (Automatic Reference Counting) from deallocating them.
+
+| Concept           | Description                       |
+| ----------------- | --------------------------------- |
+| ARC               | Manages memory automatically      |
+| Retain Cycle      | Two objects keep each other alive |
+| Weak Reference    | Does not increase retain count    |
+| Unowned Reference | Non-optional, crashes if nil      |
+
+
+4.1) What is Memory Leak and how to Debug it
 
 Memory leaks occur when objects stay in memory longer than needed, often due to retain cycles.
 In iOS, you can debug memory leaks using Instruments (Leaks & Allocations tool) or Xcode’s Memory Graph.
