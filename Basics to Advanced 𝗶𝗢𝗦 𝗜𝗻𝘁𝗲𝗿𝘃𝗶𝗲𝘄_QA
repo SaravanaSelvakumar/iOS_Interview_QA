@@ -29,11 +29,21 @@ struct Person {
 }
 
 
-2.) what is Optional ?
+1.2 ) what is Optional ?
 
 Optionals in Swift are used to represent a variable that can hold either a value or nil (no value). They help safely handle the absence of a value without crashing the app. You declare an optional by adding ? after the type, like String?.
 
 optional are swift features were a variable can hold a value or it can be nil and Optionals can  be handled in multiple ways nil coalescing optional binding guard statement and force unwrap
+
+
+2.) what is Optional ?
+
+"if let and guard let are both used for optional binding in Swift, but they serve different purposes in terms of control flow.
+if let is typically used when I want to unwrap an optional and handle it within a conditional block — the unwrapped value is only available inside the if scope.
+On the other hand, guard let is used for early exit — it's better for validating required conditions at the start of a function.
+If the optional is nil, I can exit early using return or break, and the unwrapped value remains available in the rest of the function scope.
+Personally, I prefer using guard let for input validation and cleaner flow, especially in functions or view lifecycle methods,
+because it helps keep the happy path unindented and readable."
 
 
 2.1.)  What is the difference between UIKit and SwiftUI?
