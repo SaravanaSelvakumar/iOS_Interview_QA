@@ -126,6 +126,14 @@ numberOfRowsInSection                             didSelectRowAt
 cellForRowAt                                      heightForRowAt
 
 
+UICollectionViewDataSource methods:               UICollectionViewDelegate methods:
+
+numberOfItemsInSection                             didSelectItemAt
+
+cellForItemAt                                      sizeForItemAt
+
+
+
 9.) What is a protocol in Swift?
 
 A protocol in Swift defines a blueprint of methods, properties, or other requirements that a class, struct, or enum must adopt.
