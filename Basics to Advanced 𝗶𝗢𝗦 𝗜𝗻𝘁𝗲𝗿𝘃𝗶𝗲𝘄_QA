@@ -36,7 +36,7 @@ Optionals in Swift are used to represent a variable that can hold either a value
 optional are swift features were a variable can hold a value or it can be nil and Optionals can  be handled in multiple ways nil coalescing optional binding guard statement and force unwrap
 
 
-2.) what is Optional ?
+2.) What's the difference between if let and guard let ?
 
 "if let and guard let are both used for optional binding in Swift, but they serve different purposes in terms of control flow.
 if let is typically used when I want to unwrap an optional and handle it within a conditional block — the unwrapped value is only available inside the if scope.
