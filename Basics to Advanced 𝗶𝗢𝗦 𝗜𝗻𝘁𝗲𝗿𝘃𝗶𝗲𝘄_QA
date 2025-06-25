@@ -75,6 +75,16 @@ Storyboards are good for app flow visualization, while XIBs offer better modular
 XIBs also load faster during development and reduce merge conflicts in teams.
 
 
+5.1 )  What is a Stack View in iOS?
+
+a Stack View is a UI component (UIStackView in UIKit or VStack/HStack in SwiftUI) that arranges its child views in a line — either vertically or horizontally — and automatically handles their layout.
+It helps to create layouts without writing Auto Layout constraints manually and has features like giving alignment, spacing, and positions like vertical and horizontal
+ stack.axis = .vertical     // or .horizontal
+stack.distribution = .fillEqually
+stack.alignment = .center
+stack.spacing = 10
+
+
 6.) 𝗪𝗵𝗮𝘁 𝗶𝘀 𝗩𝗶𝗲𝘄𝗖𝗼𝗻𝘁𝗿𝗼𝗹𝗹𝗲𝗿 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
 
 viewDidLoad() – called once when the view loads.
