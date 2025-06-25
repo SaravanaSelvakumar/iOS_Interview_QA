@@ -111,7 +111,7 @@ Background: The app is executing in the background.
 Suspended: The app is in memory but not executing code.
 
 
-8.) 𝗪𝗵𝗮𝘁 𝗶DataSource and Delegate
+8.) 𝗪𝗵𝗮𝘁 𝗶s a DataSource and Delegate
 
 DataSource and Delegate are protocols used to separate data handling and user interaction logic in UIKit components like UITableView or UICollectionView.
 
