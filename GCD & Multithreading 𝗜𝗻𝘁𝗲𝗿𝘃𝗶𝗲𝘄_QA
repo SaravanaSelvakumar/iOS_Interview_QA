@@ -197,8 +197,22 @@ queue.async(flags: .barrier) {
 
 
 
+11.) What is a deadlock in iOS/Swift (GCD)??
 
+A deadlock is a situation where two or more threads are waiting for each other to release resources, but neither can proceed, causing the app to freeze.
+In iOS, deadlocks often occur when we use synchronous dispatch (DispatchQueue.sync) on a queue that is already executing a task, especially the same queue.
 
+DispatchQueue.main.async {
+    DispatchQueue.main.sync {
+        print("Hello")
+    }
+}
+
+In this example:
+
+The outer block is dispatched asynchronously on the main queue.
+Inside it, we're trying to synchronously dispatch again on the main queue.
+Since .sync waits for the inner block to finish, but the main queue is already busy with the outer block, it causes a deadlock — the app hangs indefinitely.
 
 
 
