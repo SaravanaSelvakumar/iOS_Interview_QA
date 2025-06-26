@@ -29,7 +29,8 @@ Weak and unowned are mainly used to prevent retain cycles.
 
 3.) What is ARC (Automatic Reference Counting)?
 
- ARC (Automatic Reference Counting) tracks object references. When the reference count reaches zero, the object is deallocated. ARC prevents memory leaks but can cause retain cycles if not managed properly.
+ ARC (Automatic Reference Counting) tracks object references. When the reference count reaches zero, the object is deallocated.
+ ARC prevents memory leaks but can cause retain cycles if not managed properly.
 
  ARC (Automatic Reference Counting) is a memory management system in Swift that automatically keeps track of the number of references to class instances.
  When an instance is no longer needed, ARC automatically deallocates it to free up memory.
@@ -78,7 +79,8 @@ Run the app → Debug navigator → Memory Graph → Look for objects not deallo
 
 5.) What is Dependency injection (DI) ?
 
-Dependency Injection (DI) is a design pattern where an object receives its dependencies (like services or data managers) from outside rather than creating them internally.
+Dependency Injection (DI) is a design pattern where an object receives its dependencies (like services or data managers)
+from outside rather than creating them internally.
 It improves testability, modularity, and code reusability.
 
 Types of Dependency Injection:
