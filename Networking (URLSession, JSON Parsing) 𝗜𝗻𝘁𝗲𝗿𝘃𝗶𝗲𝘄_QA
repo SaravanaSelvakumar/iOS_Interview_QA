@@ -67,7 +67,8 @@ request.httpBody = jsonData
 
 5.) How do you handle errors in a network request?
 
-In Swift, you define a custom error type by conforming to the Error protocol, then use do-try-catch blocks to handle errors thrown from methods. This allows centralized and clean error handling.
+In Swift, you define a custom error type by conforming to the Error protocol, then use do-try-catch blocks to handle errors thrown from methods.
+This allows centralized and clean error handling.
 
  we handle network errors by checking for error object (like no internet, timeout) HTTP status codes (like 404, 500) invalid/missing data
 
@@ -124,7 +125,8 @@ Supports multipart uploads, authentication, retry logic
 
 7.) How do you pass data from one view to another in iOS?
 
-There are multiple ways to pass data between views or view controllers in iOS depending on the use case. Common methods include Property Passing, Closures, Delegates, NotificationCenter, and Combine.
+There are multiple ways to pass data between views or view controllers in iOS depending on the use case.
+Common methods include Property Passing, Closures, Delegates, NotificationCenter, and Combine.
 
 🔹 1. Property Passing (most common)
 let vc = DetailVC()
