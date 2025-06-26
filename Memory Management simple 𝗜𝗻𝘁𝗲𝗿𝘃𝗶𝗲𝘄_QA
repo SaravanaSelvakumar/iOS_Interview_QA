@@ -58,7 +58,7 @@ ________________________________________________________________________________
 
 Q) How does ARC handle closures in Swift?
 
-    Closures capture references, which may cause retain cycles if self is captured strongly. Using [weak sell] or [unowned self) prevents this.
+    Closures capture references, which may cause retain cycles if self is captured strongly. Using [weak self] or [unowned self) prevents this.
 
 ___________________________________________________________________________________________________________________________________________________________
 
