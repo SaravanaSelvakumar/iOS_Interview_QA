@@ -3,51 +3,65 @@ Q) What is memory management in iOS?
 
    Memory Management in iOS is the process of allocating and deallocating objects to prevent memory leaks and optimize app performance.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) How is memory managed in iOS?
 
   IOS uses Automatic Reference Counting (ARC) to handle memory management automatically.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) What is ARC and how does it work?
 
-   ARC (Automatic Reference Counting) tracks object references. When the reference count reaches zero, the object is deallocated. ARC prevents memory leaks but can cause retain cycles if not managed properly.
+   ARC (Automatic Reference Counting) tracks object references. When the reference count reaches zero, the object is deallocated.
+   ARC prevents memory leaks but can cause retain cycles if not managed properly.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) What is a retain cycle?
 
    A retain cycle occurs when two or more objects hold strong references to each other, preventing deallocation and leading to memory leaks.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) How can retain cycles be avoided?
 
    Retain cycles can be broken using weak or unowned references.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) What is a weak reference?
 
    A weak reference does not increase an object's reference count, allowing it to be deallocated when no strong references remain.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) What is a strong reference?
 
    A strong reference increases an object's reference count, ensuring it stays in memory as long as the reference exists.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) What is an unowned reference?
 
-   An unowned reference does not increase an object's reference count and does not become nil automatically, It is used when both objects have the same lifetime.
+   An unowned reference does not increase an object's reference count and does not become nil automatically,
+   It is used when both objects have the same lifetime.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) Difference between weak and unowned?
 
    -Weak: Can become ni, used for delegates or when an object may be deallocated. 
    -Unowned. Cannot be nil, used when both objects have the same lifetime.
 
+___________________________________________________________________________________________________________________________________________________________
 
 Q) How does ARC handle closures in Swift?
 
     Closures capture references, which may cause retain cycles if self is captured strongly. Using [weak sell] or [unowned self) prevents this.
+
+___________________________________________________________________________________________________________________________________________________________
+
 
 
 
