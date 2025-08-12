@@ -97,6 +97,64 @@ viewWillDisappear() – before it disappears.
 
 viewDidDisappear() – after it disappears.
 
+******************************************************************************************************************************************************
+
+The app lifecycle is the set of well-defined states an iOS app goes through from launch to termination, and the system callbacks where you should pause/resume work, save state, and free resources.
+
+Core states (simple)
+Not running — app not launched or terminated.
+
+Inactive — running but not receiving events (e.g., incoming call, app transitioning).
+
+Active — app is in the foreground and receiving events (normal running).
+
+Background — app is running in background (can execute limited tasks).
+
+Suspended — app is in memory but not executing code (no CPU).
+
+Key lifecycle callbacks (UIKit / AppDelegate & SceneDelegate)
+application(_:didFinishLaunchingWithOptions:) — app finished launching; init setup.
+
+applicationDidBecomeActive(_:) — app became active; restart tasks, refresh UI.
+
+applicationWillResignActive(_:) — app will go inactive; pause ongoing tasks, disable timers.
+
+applicationDidEnterBackground(_:) — app entered background; save data, release shared resources, request extra background time if needed.
+
+applicationWillEnterForeground(_:) — app is moving from background to foreground; undo background changes.
+
+applicationWillTerminate(_:) — app is about to be terminated (not always called); persist final state.
+
+If using Scenes (multi-window, iOS 13+), similar methods exist on UISceneDelegate:
+
+sceneDidBecomeActive(_:), sceneWillResignActive(_:), sceneWillEnterForeground(_:), sceneDidEnterBackground(_:).
+
+SwiftUI (App protocol) — scenePhase
+SwiftUI provides @Environment(\.scenePhase) and onChange to react to state changes:
+
+@main
+struct MyApp: App {
+    @Environment(\.scenePhase) private var scenePhase
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .active:
+                // app active
+            case .inactive:
+                // app inactive
+            case .background:
+                // save data, cleanup
+            @unknown default: break
+            }
+        }
+    }
+}
+
+****************************************************************************************************************************************************************
 
 7.) 𝗪𝗵𝗮𝘁 𝗶𝘀 app 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
 
