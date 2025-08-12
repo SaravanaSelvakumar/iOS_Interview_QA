@@ -42,3 +42,20 @@ func removeDuplicate2(_ array: [Int]) -> [Int] {
 
 let result = removeDuplicate(arr)
 print(result)
+
+func checkPrime(_ number: Int) -> Bool {
+  if number <= 1 { return false }  // 2 <= 1 
+  for i in 2..<number {
+      if number % i == 0 {
+         return false  
+      } 
+  }
+  return true
+}
+
+
+let result = checkPrime(6)
+print(result)
+
+
+
