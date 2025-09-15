@@ -103,13 +103,13 @@ viewDidDisappear() – after it disappears.
 
 Not Running: The app is not launched yet.
 
-Inactive: The app is in the foreground but not receiving input.
+Inactive: The app is in the foreground but not receiving input. ( movie playing call comes movie stops app froze  - inactive state )
 
 Active: The app is running and receiving events.
 
-Background: The app is executing in the background.
+Background: The app is executing in the background.  ( music app plays in bg )
 
-Suspended: The app is in memory but not executing code.
+Suspended: The app is in memory but not executing code.  ( app is in recent apps currently not in use )
 
 
 The app lifecycle is the set of well-defined states an iOS app goes through from launch to termination, and the system callbacks where you should pause/resume work, save state, and free resources.
