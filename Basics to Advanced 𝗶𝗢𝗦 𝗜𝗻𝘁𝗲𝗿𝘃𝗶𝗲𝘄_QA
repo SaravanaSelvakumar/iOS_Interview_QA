@@ -99,6 +99,19 @@ viewDidDisappear() – after it disappears.
 
 ******************************************************************************************************************************************************
 
+7.) 𝗪𝗵𝗮𝘁 𝗶𝘀 app 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
+
+Not Running: The app is not launched yet.
+
+Inactive: The app is in the foreground but not receiving input.
+
+Active: The app is running and receiving events.
+
+Background: The app is executing in the background.
+
+Suspended: The app is in memory but not executing code.
+
+
 The app lifecycle is the set of well-defined states an iOS app goes through from launch to termination, and the system callbacks where you should pause/resume work, save state, and free resources.
 
 Core states (simple)
@@ -155,18 +168,6 @@ struct MyApp: App {
 }
 
 ****************************************************************************************************************************************************************
-
-7.) 𝗪𝗵𝗮𝘁 𝗶𝘀 app 𝗹𝗶𝗳𝗲𝗰𝘆𝗰𝗹𝗲 𝗶𝗻 𝗶𝗢𝗦?
-
-Not Running: The app is not launched yet.
-
-Inactive: The app is in the foreground but not receiving input.
-
-Active: The app is running and receiving events.
-
-Background: The app is executing in the background.
-
-Suspended: The app is in memory but not executing code.
 
 
 8.) 𝗪𝗵𝗮𝘁 𝗶s a DataSource and Delegate
